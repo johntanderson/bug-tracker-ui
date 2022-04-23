@@ -1,39 +1,81 @@
-import React from 'react';
-import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
-import "@fontsource/source-sans-pro"
-import "@fontsource/source-sans-pro/600.css"
-import "@fontsource/source-sans-pro/300.css"
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Navbar from "./components/Navbar/Navbar";
-import Sidebar from "./components/Sidebar/Sidebar";
-import Dashboard from "./routes/Dashboard/Dashboard";
-import Projects from "./routes/Projects/Projects";
-import Bugs from "./routes/Bugs/Bugs";
-import Messages from "./routes/Messages/Messages";
-import AccountSettings from "./routes/AccountSettings/AccountSettings";
-import AdminPanel from "./routes/AdminPanel/AdminPanel";
+import React, { useState } from "react";
+import { Route, Routes, Navigate, Outlet } from "react-router-dom";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import { Appbar, Drawer } from "@components/navigation";
+import {
+	Admin,
+	Analytics,
+	Bugs,
+	Dashboard,
+	Projects,
+	Settings,
+} from "@views/protected";
+import { 
+	Landing,
+	Login,
+	Register
+} from "@views/public";
+
+const loggedIn = true;
+const role = 'Admin';
 
 function App() {
+	const [sidebarOpen, setSidebarOpen] = useState(false);
 	return (
-		<Router>
-			<Box sx={{ display: "flex" }}>
-				<Navbar />
-				<Sidebar />
-				<Box component='main' sx={{ flex: 4, p: 3 }}>
-					<Toolbar />
-					<Routes>
-						<Route path='/' element={<Dashboard />} />
-						<Route path='/dashboard' element={<Dashboard />} />
-						<Route path='/projects' element={<Projects />} />
-						<Route path='/issues' exact element={<Bugs />} />
-						<Route path='/messages' exact element={<Messages />} />
-						<Route path='/settings' element={<AccountSettings />} />
-						<Route path='/admin' element={<AdminPanel />} />
-					</Routes>
-				</Box>
-			</Box>
-		</Router>
+		<Routes>
+
+			{/* Public Routes */}
+			<Route element={<Outlet />} >
+				<Route path='/' element={<Landing />} />
+				<Route path='/login' element={<Login />} />
+				<Route path='/register' element={<Register />} />
+			</Route>
+
+			{/* Protected Routes */}
+			<Route
+				element={
+					<Box sx={{ display: "flex" }}>
+						<Appbar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+						<Drawer open={sidebarOpen} setOpen={setSidebarOpen} />
+						<Box component='main' sx={{ flex: 4, p: 3 }}>
+							<Toolbar />
+							<Outlet />
+						</Box>
+					</Box>
+				}
+			>
+				<Route path='/dashboard' element={<Dashboard sidebarOpen={sidebarOpen} />} />
+				<Route path='/projects' element={<Projects />} />
+				<Route path='/bugs' element={<Bugs />} />
+				<Route path='/bugs/:ID' element={<Bugs />} />
+				<Route path='/analytics' element={<Analytics />} />
+				<Route path='/settings' element={<Settings />} />
+				<Route path='/admin' element={<Admin />} />
+			</Route>
+			<Route path='*' element={<Navigate to={loggedIn ? '/dashboard' : '/'} replace />} />
+		</Routes>
+
+		// <Box sx={{ display: "flex" }}>
+		// 	<Appbar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+		// 	<Drawer open={sidebarOpen} setOpen={setSidebarOpen} />
+		// 	<Box component='main' sx={{ flex: 4, p: 3 }}>
+		// 		<Toolbar />
+		// 		<Routes>
+		// 			<Route
+		// 				path='/dashboard'
+		// 				element={<Dashboard sidebarOpen={sidebarOpen} />}
+		// 			/>
+		// 			<Route path='/projects' element={<Projects />} />
+		// 			<Route path='/bugs' exact element={<Bugs />} />
+		// 			<Route path='/bugs/:ID' exact element={<Bugs />} />
+		// 			<Route path='/analytics' exact element={<Analytics />} />
+		// 			<Route path='/settings' element={<Settings />} />
+		// 			<Route path='/admin' element={<Admin />} />
+		// 			<Route path='*' element={<Navigate to='/dashboard' replace />} />
+		// 		</Routes>
+		// 	</Box>
+		// </Box>
 	);
 }
 
