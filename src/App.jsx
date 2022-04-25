@@ -3,6 +3,7 @@ import { Route, Routes, Navigate, Outlet } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import { Appbar, Drawer } from "@components/navigation";
+
 import {
 	Admin,
 	Analytics,
@@ -21,7 +22,8 @@ const loggedIn = true;
 const role = 'Admin';
 
 function App() {
-	const [sidebarOpen, setSidebarOpen] = useState(false);
+	const [sidebarOpen, setSidebarOpen] = useState(()=>false);
+
 	return (
 		<Routes>
 
@@ -37,7 +39,7 @@ function App() {
 				element={
 					<Box sx={{ display: "flex" }}>
 						<Appbar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-						<Drawer open={sidebarOpen} setOpen={setSidebarOpen} />
+						<Drawer />
 						<Box component='main' sx={{ flex: 4, p: 3 }}>
 							<Toolbar />
 							<Outlet />
@@ -55,27 +57,6 @@ function App() {
 			</Route>
 			<Route path='*' element={<Navigate to={loggedIn ? '/dashboard' : '/'} replace />} />
 		</Routes>
-
-		// <Box sx={{ display: "flex" }}>
-		// 	<Appbar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-		// 	<Drawer open={sidebarOpen} setOpen={setSidebarOpen} />
-		// 	<Box component='main' sx={{ flex: 4, p: 3 }}>
-		// 		<Toolbar />
-		// 		<Routes>
-		// 			<Route
-		// 				path='/dashboard'
-		// 				element={<Dashboard sidebarOpen={sidebarOpen} />}
-		// 			/>
-		// 			<Route path='/projects' element={<Projects />} />
-		// 			<Route path='/bugs' exact element={<Bugs />} />
-		// 			<Route path='/bugs/:ID' exact element={<Bugs />} />
-		// 			<Route path='/analytics' exact element={<Analytics />} />
-		// 			<Route path='/settings' element={<Settings />} />
-		// 			<Route path='/admin' element={<Admin />} />
-		// 			<Route path='*' element={<Navigate to='/dashboard' replace />} />
-		// 		</Routes>
-		// 	</Box>
-		// </Box>
 	);
 }
 

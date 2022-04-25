@@ -1,47 +1,26 @@
 import * as React from "react";
-import {
-	Avatar as MuiAvatar,
-	Box,
-	IconButton,
-	Tooltip,
-} from "@mui/material";
+import { Avatar as MuiAvatar, Box, IconButton, Tooltip } from "@mui/material";
 import { Link } from "react-router-dom";
-import { RippleBadge } from '@components/badges';
+import { RippleBadge } from "@components/badges";
 
-function InitialAvatar({ open }) {
-
-	const attributes = {
-
-		Tooltip: {
-			title: open ? '' : 'Open Settings',
-			placement: 'right'
-		},
-
-		IconButton: {
-			component: Link,
-			to: '/settings',
-			sx: { padding: 0 }
-		},
-
-		Badge: {
-			overlap: 'circular',
-			anchorOrigin: { vertical: "bottom", horizontal: "right" },
-			variant: 'dot'
-		},
-
-		MuiAvatar: {
-			alt: 'Remy Sharp',
-			sx: { width: "32px", height: "32px" }
-		},
-		
-	};
-
+function InitialAvatar({
+	title = "",
+	placement = "right",
+	path = "/settings",
+}) {
 	return (
 		<Box>
-			<Tooltip {...attributes.Tooltip} >
-				<IconButton {...attributes.IconButton} >
-					<RippleBadge {...attributes.Badge} >
-						<MuiAvatar {...attributes.MuiAvatar} >
+			<Tooltip title={title} placement={placement}>
+				<IconButton component={Link} to={path} sx={{ padding: 0 }}>
+					<RippleBadge
+						overlap='circular'
+						anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+						variant='dot'
+					>
+						<MuiAvatar
+							alt='John Anderson'
+							sx={{ width: "32px", height: "32px" }}
+						>
 							JA
 						</MuiAvatar>
 					</RippleBadge>
@@ -51,5 +30,5 @@ function InitialAvatar({ open }) {
 	);
 }
 
-export { InitialAvatar }
+export { InitialAvatar };
 export default InitialAvatar;

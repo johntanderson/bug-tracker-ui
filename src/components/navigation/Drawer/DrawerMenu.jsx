@@ -16,7 +16,7 @@ export default function DrawerMenu({ open }) {
 
 	return (
 		<List dense={true}>
-			{navbarList.map((key, index) => (
+			{navbarList.map((key) => (
 				<Tooltip
 					key={key.desc}
 					title={open ? "" : key.desc}
