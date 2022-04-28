@@ -1,19 +1,19 @@
 import React from "react";
-import { createRoot } from "react-dom/client";
+import ReactDOM from "react-dom";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router } from "react-router-dom";
 import MainTheme from "@utilities/Theme";
 import App from "@/App";
 
-const container = document.getElementById("root");
-const root = createRoot(container);
-
-root.render(
-	<ThemeProvider theme={MainTheme}>
-		<CssBaseline />
-		<Router>
-			<App />
-		</Router>
-	</ThemeProvider>
+ReactDOM.render(
+	<React.StrictMode>
+		<ThemeProvider theme={MainTheme}>
+			<CssBaseline />
+			<Router>
+				<App />
+			</Router>
+		</ThemeProvider>
+	</React.StrictMode>,
+	document.getElementById("root")
 );

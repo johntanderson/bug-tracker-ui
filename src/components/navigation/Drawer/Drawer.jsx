@@ -127,7 +127,7 @@ function Drawer() {
 			}}>
 				<Box sx={{
 				display: "flex",
-				marginRight: "18px",
+				marginRight: "17px",
 				paddingLeft: "0px",
 				alignItems: "center",
 				alignContent: "center",
