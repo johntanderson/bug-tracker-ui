@@ -3,7 +3,7 @@ import { Route, Routes, Navigate, Outlet } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import { Appbar, Drawer } from "@components/navigation";
-
+import { DrawerProvider } from "@contexts/DrawerContext";
 import {
 	Admin,
 	Analytics,
@@ -19,7 +19,6 @@ import {
 } from "@views/public";
 
 const loggedIn = true;
-const role = 'Admin';
 
 function App() {
 	const [sidebarOpen, setSidebarOpen] = useState(()=>false);
@@ -38,12 +37,14 @@ function App() {
 			<Route
 				element={
 					<Box sx={{ display: "flex" }}>
+						<DrawerProvider>
 						<Appbar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 						<Drawer />
 						<Box component='main' sx={{ flex: 4, p: 3 }}>
 							<Toolbar />
 							<Outlet />
 						</Box>
+						</DrawerProvider>
 					</Box>
 				}
 			>

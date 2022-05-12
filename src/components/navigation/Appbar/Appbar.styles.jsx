@@ -1,10 +1,11 @@
-import React from "react";
+import React, {useContext} from "react";
 import { useTheme } from "@mui/material/styles";
 import { AppBar as MUIAppBar } from "@mui/material";
+import {DrawerContext} from "@contexts/DrawerContext";
 
-
-const StyledAppBar = ({children, open}) => {
+const StyledAppBar = ({children}) => {
     const theme = useTheme();
+    const [drawerContext, ] = useContext(DrawerContext);
     return (
         <MUIAppBar
             position='fixed'
@@ -12,15 +13,11 @@ const StyledAppBar = ({children, open}) => {
                 backgroundColor: "transparent",
                 boxShadow: "none",
                 position: "absolute",
-                width: open
-                    ? { xs: `calc(100% - 68px)`, sm: `calc(100% - 240px)` }
-                    : { xs: `100%`, sm: `calc(100% - 68px)` },
-                ml: open
-                    ? { xs: `calc(100% - 68px)`, sm: `calc(100% - 240px)` }
-                    : { xs: `100%`, sm: `calc(100% - 68px)` },
+                width: `calc(100% - ${drawerContext.width}px)`,
+                ml: `calc(100% - ${drawerContext.width}px)`,
                 transition: theme.transitions.create("width", {
                     easing: theme.transitions.easing.sharp,
-                    duration: open
+                    duration: drawerContext.open
                         ? theme.transitions.duration.enteringScreen
                         : theme.transitions.duration.leavingScreen,
                 }),

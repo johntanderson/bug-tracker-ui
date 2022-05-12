@@ -1,16 +1,19 @@
+import { useContext } from "react";
 import { Toolbar, Box } from "@mui/material";
 import { MenuButton } from '@components/buttons';
 import { Navigator } from '@components/navigation'
 import { StyledAppBar } from './Appbar.styles';
+import { DrawerContext} from "@contexts/DrawerContext";
 
-function Appbar({ sidebarOpen, setSidebarOpen }) {
+function Appbar() {
+	const [drawerContext, setDrawerOpen] = useContext(DrawerContext);
 
 	return (
-		<StyledAppBar open={sidebarOpen}>
+		<StyledAppBar>
 			<Toolbar>
-				{!sidebarOpen ? (
+				{!drawerContext.open ? (
 					<MenuButton 
-						onClick={()=>setSidebarOpen((prev)=>!prev)}
+						onClick={()=>setDrawerOpen((prev)=>!prev)}
 						color="#11101D"
 						sx={{display: { sm: "none" } }}
 					/>
