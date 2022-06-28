@@ -1,8 +1,8 @@
-import React, {createContext, useState, useEffect} from 'react';
+import React, {createContext, useState, useEffect, useCallback} from 'react';
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 
-function getDrawerWidth(drawerState = 'closed', screenSize = 'sm') {
+const getDrawerWidth = ((open, screenSize) => {
     const drawerDimensions = {
         open: {
             xs: 68,
@@ -13,23 +13,41 @@ function getDrawerWidth(drawerState = 'closed', screenSize = 'sm') {
             sm: 68,
         },
     };
-    return drawerDimensions[drawerState][screenSize];
-}
+    return drawerDimensions[open][screenSize];
+})
 
 export const DrawerContext = createContext(null);
 
 export const DrawerProvider = ({children}) => {
     const theme = useTheme();
-    const xs = useMediaQuery(theme.breakpoints.only("xs"));
-    const [open, setOpen] = useState(() => false);
-    const [width, setWidth] = useState(() => null);
+    const xs = useMediaQuery(theme.breakpoints.only("xs"), {noSsr: true});
+    const [drawerState, setDrawerState] = useState(()=> getInitialState())
 
     useEffect(() => {
-        setWidth(() => getDrawerWidth(open ? "open" : "closed", xs ? "xs" : "sm"));
-    }, [xs, open]);
+        setDrawerState((prevState) => {
+            return {
+                open: prevState.open,
+                width: getDrawerWidth(prevState.open ? "open" : "closed", xs ? "xs" : "sm")
+            }
+        })
+    }, [xs]);
+
+    function getInitialState(){
+        let open = sessionStorage.getItem("DrawerContext") || "closed";
+
+        let width = getDrawerWidth(open, xs ? "xs" : "sm");
+        return {open: open === "open", width: width};
+    }
+
+    function setOpen(){
+        setDrawerState((prev) => {
+            sessionStorage.setItem("DrawerContext", !prev.open ? "open" : "closed");
+            return {open: !prev.open, width: getDrawerWidth(!prev.open ? "open" : "closed", xs ? "xs" : "sm")}
+        });
+    }
 
     return (
-        <DrawerContext.Provider value={[{open: open, width: width}, setOpen]}>
+        <DrawerContext.Provider value={[drawerState, setOpen]}>
             {children}
         </DrawerContext.Provider>
     )

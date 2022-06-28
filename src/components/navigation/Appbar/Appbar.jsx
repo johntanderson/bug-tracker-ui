@@ -1,9 +1,9 @@
 import { useContext } from "react";
 import { Toolbar, Box } from "@mui/material";
-import { MenuButton } from '@components/buttons';
-import { Navigator } from '@components/navigation'
+import { MenuButton } from '@/components/buttons';
+import { Navigator } from '@/components/navigation'
 import { StyledAppBar } from './Appbar.styles';
-import { DrawerContext} from "@contexts/DrawerContext";
+import { DrawerContext} from "@/contexts/DrawerContext";
 
 function Appbar() {
 	const [drawerContext, setDrawerOpen] = useContext(DrawerContext);

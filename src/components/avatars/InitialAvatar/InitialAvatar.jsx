@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Avatar as MuiAvatar, Box, IconButton, Tooltip } from "@mui/material";
 import { Link } from "react-router-dom";
-import { RippleBadge } from "@components/badges";
+import { RippleBadge } from "@/components/badges";
 
 function InitialAvatar({
 	title = "",

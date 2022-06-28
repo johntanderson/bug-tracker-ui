@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { BrowserRouter as Router } from "react-router-dom";
-import MainTheme from "@utilities/Theme";
+import MainTheme from "@/utilities/Theme";
 import App from "@/App";
 
 ReactDOM.render(

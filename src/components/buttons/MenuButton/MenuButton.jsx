@@ -1,5 +1,5 @@
 import MenuIcon from "@mui/icons-material/Menu";
-import {Button} from "@mui/material";
+import { Button } from "@mui/material";
 
 const MenuButton = ({onClick, sx, color}) => (
     <Button

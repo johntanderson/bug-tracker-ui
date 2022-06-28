@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Route, Routes, Navigate, Outlet } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import { Appbar, Drawer } from "@components/navigation";
-import { DrawerProvider } from "@contexts/DrawerContext";
+import { Appbar, Drawer } from "@/components/navigation";
+import { DrawerProvider } from "@/contexts/DrawerContext";
 import {
 	Admin,
 	Analytics,
@@ -11,24 +11,22 @@ import {
 	Dashboard,
 	Projects,
 	Settings,
-} from "@views/protected";
-import { 
-	Landing,
+} from "@/views/protected";
+import {
 	Login,
 	Register
-} from "@views/public";
+} from "@/views/public";
 
 const loggedIn = true;
 
 function App() {
-	const [sidebarOpen, setSidebarOpen] = useState(()=>false);
+	const [sidebarOpen] = useState(()=>false);
 
 	return (
 		<Routes>
 
 			{/* Public Routes */}
 			<Route element={<Outlet />} >
-				<Route path='/' element={<Landing />} />
 				<Route path='/login' element={<Login />} />
 				<Route path='/register' element={<Register />} />
 			</Route>
@@ -38,17 +36,17 @@ function App() {
 				element={
 					<Box sx={{ display: "flex" }}>
 						<DrawerProvider>
-						<Appbar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-						<Drawer />
-						<Box component='main' sx={{ flex: 4, p: 3 }}>
-							<Toolbar />
-							<Outlet />
-						</Box>
+							<Appbar />
+							<Drawer />
+							<Box component='main' sx={{ flex: 4, p: 3 }}>
+								<Toolbar />
+								<Outlet />
+							</Box>
 						</DrawerProvider>
 					</Box>
 				}
 			>
-				<Route path='/dashboard' element={<Dashboard sidebarOpen={sidebarOpen} />} />
+				<Route path='/dashboard' element={<Dashboard />} />
 				<Route path='/projects' element={<Projects />} />
 				<Route path='/bugs' element={<Bugs />} />
 				<Route path='/bugs/:ID' element={<Bugs />} />
@@ -56,7 +54,7 @@ function App() {
 				<Route path='/settings' element={<Settings />} />
 				<Route path='/admin' element={<Admin />} />
 			</Route>
-			<Route path='*' element={<Navigate to={loggedIn ? '/dashboard' : '/'} replace />} />
+			<Route path='*' element={<Navigate to={loggedIn ? '/dashboard' : '/login'} replace />} />
 		</Routes>
 	);
 }

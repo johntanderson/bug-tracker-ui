@@ -7,7 +7,7 @@ import Badge from "@mui/material/Badge";
 import Tooltip from "@mui/material/Tooltip";
 import Divider from "@mui/material/Divider";
 import Chip from "@mui/material/Chip";
-import navbarList from "../../../utilities/Routes";
+import navbarList from "@/utilities/Routes";
 import { Link, useLocation } from "react-router-dom";
 
 export default function DrawerMenu({ open }) {

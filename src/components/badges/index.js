@@ -1,3 +1,3 @@
-import RippleBadge from '@components/badges/RippleBadge/RippleBadge';
+import RippleBadge from './RippleBadge/RippleBadge';
 
 export { RippleBadge };

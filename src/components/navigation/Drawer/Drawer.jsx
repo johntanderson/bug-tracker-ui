@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
 import { useTheme } from "@mui/material/styles";
 import { ExitToApp, BugReport } from "@mui/icons-material";
-import { InitialAvatar } from "@components/avatars";
+import { InitialAvatar } from "@/components/avatars";
 import DrawerMenu from "./DrawerMenu";
-import { MenuButton } from "@components/buttons";
+import { MenuButton } from "@/components/buttons";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { DrawerContext } from "@contexts/DrawerContext";
+import { DrawerContext } from "@/contexts/DrawerContext";
 import {
 	Box,
 	Drawer as MuiDrawer,
@@ -15,7 +15,6 @@ import {
 
 function Drawer() {
 	const [drawerContext, setOpen] = useContext(DrawerContext);
-	console.log(drawerContext);
 	const theme = useTheme();
 	const xs = useMediaQuery(theme.breakpoints.only("xs"));
 
@@ -87,7 +86,7 @@ function Drawer() {
 						Bug Tracker
 					</Typography>
 					<MenuButton
-						onClick={() => setOpen((prev) => !prev)}
+						onClick={() => setOpen()}
 						color='lightgray'
 						sx={{
 							"&:hover": {

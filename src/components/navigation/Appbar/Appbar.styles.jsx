@@ -1,7 +1,7 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import { useTheme } from "@mui/material/styles";
 import { AppBar as MUIAppBar } from "@mui/material";
-import {DrawerContext} from "@contexts/DrawerContext";
+import { DrawerContext } from "@/contexts/DrawerContext";
 
 const StyledAppBar = ({children}) => {
     const theme = useTheme();
